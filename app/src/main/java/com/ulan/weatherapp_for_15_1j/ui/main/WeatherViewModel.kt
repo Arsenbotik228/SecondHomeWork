@@ -13,7 +13,7 @@ class WeatherViewModel @Inject constructor(
 ) : ViewModel() {
     var liveData = MutableLiveData<BaseMainResponse>()
 
-    fun getCurrentWeather() {
-        liveData = repository.getWeatger()
+    fun getCurrentWeather(cityName:String) {
+        liveData = repository.getWeatger(cityName)
     }
 }

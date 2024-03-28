@@ -1,14 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.search.SearchBottomSheetFragment">
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_margin="20dp"
+        android:id="@+id/ct_ed"
+        android:outlineSpotShadowColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="cursive"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:hint="Name City"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:paddingLeft="40dp"
+        android:layout_height="60dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/et_search"/>
 
-</FrameLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:id="@+id/btn_search"
+        android:text="Search"
+        android:backgroundTint="#00FFA6"
+        app:layout_constraintTop_toBottomOf="@id/ct_ed"
+        android:layout_marginTop="40dp"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

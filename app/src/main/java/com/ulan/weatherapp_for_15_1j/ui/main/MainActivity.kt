@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ulan.weatherapp_for_15_1j.R
 import com.ulan.weatherapp_for_15_1j.databinding.ActivityMainBinding
 import com.ulan.weatherapp_for_15_1j.ui.loadImage
+import com.ulan.weatherapp_for_15_1j.ui.search.SearchBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Instant
 import java.time.LocalDateTime
@@ -19,13 +20,14 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchBottomSheetFragment.SendText {
     private lateinit var binding: ActivityMainBinding
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var runnable: Runnable
     private val viewModel: WeatherViewModel by lazy {
         ViewModelProvider(this)[WeatherViewModel::class.java]
     }
+    private var cityName = "Bishkek"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        viewModel.getCurrentWeather()
+        viewModel.getCurrentWeather(cityName)
 
         viewModel.liveData.observe(this) {
             binding.btnChangeCountry.text = "${it.location.country}, ${it.location.name}"
@@ -55,6 +57,17 @@ class MainActivity : AppCompatActivity() {
                 formatUnixTimestamp(it.location.localtimeEpoch.toLong(), it.location.zoneId)
 
         }
+
+        binding.btnChangeCountry.setOnClickListener {
+            val bottomSheet = SearchBottomSheetFragment()
+            bottomSheet.show(supportFragmentManager, "SearchBottomSheetFragment")
+        }
+    }
+
+    override fun newText(cityName: String) {
+
+        this.cityName = cityName
+        viewModel.getCurrentWeather(cityName)
     }
 
     private fun formatUnixTimestamp(unixTimestamp: Long, zoneId: String): String {
@@ -64,39 +77,4 @@ class MainActivity : AppCompatActivity() {
         return formatter.format(zoneDateTime)
     }
 
-    private fun startUpdateTime() {
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy | HH:mm:ss")
-        runnable = object : Runnable {
-            override fun run() {
-                val currentTime = LocalDateTime.now()
-                val formattedTime = formatter.format(currentTime)
-                updateTime(formattedTime)
-                handler.postDelayed(this, 1000)
-            }
-        }
-        handler.post(runnable)
-    }
-
-    private fun updateTime(time: String) {
-        binding.tvDatetime.text = time
-    }
-
-    private fun stopUpdateTime() {
-        handler.removeCallbacks(runnable)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacks(runnable)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        startUpdateTime()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        stopUpdateTime()
-    }
 }

@@ -11,9 +11,9 @@ import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(private val apiService: ApiService) {
 
-    fun getWeatger(): MutableLiveData<BaseMainResponse> {
+    fun getWeatger(cityName:String): MutableLiveData<BaseMainResponse> {
         val liveData = MutableLiveData<BaseMainResponse>()
-        apiService.getWeather().enqueue(object : Callback<BaseMainResponse>{
+        apiService.getWeather(cityName = cityName ).enqueue(object : Callback<BaseMainResponse>{
             override fun onResponse(
                 call: Call<BaseMainResponse>,
                 response: Response<BaseMainResponse>

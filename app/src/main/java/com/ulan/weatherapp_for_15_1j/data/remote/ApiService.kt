@@ -13,6 +13,6 @@ interface ApiService {
     fun getWeather(
         @Query("key") apiKey: String = API_KEY,
         @Query("days") days: Int = 3,
-        @Query("q") cityName: String = "Bishkek"
+        @Query("q") cityName: String
     ): Call<BaseMainResponse>
 }
