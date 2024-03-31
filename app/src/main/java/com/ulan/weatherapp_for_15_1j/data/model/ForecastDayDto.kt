@@ -7,5 +7,7 @@ data class ForecastDayDto(
     @SerializedName("date_epoch")
     val dateEpoch: String,
     val day: DayDto,
-    val astro: AstroDto
+    val astro: AstroDto,
+
+
 )

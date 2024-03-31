@@ -6,6 +6,7 @@
     android:id="@+id/main"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/img_scy_back"
         android:layout_width="match_parent"
@@ -24,9 +25,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_scy_back">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:paddingTop="20dp"
+                android:id="@+id/rv_forecast"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/just_text_sunrise"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                android:layout_margin="20dp"
+                android:orientation="horizontal"
+                tools:listitem="@layout/item_fore_cast_weather"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_datetime"
@@ -84,6 +99,7 @@
                 app:layout_constraintStart_toStartOf="@id/tv_condition" />
 
             <TextView
+
                 android:id="@+id/tv_condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

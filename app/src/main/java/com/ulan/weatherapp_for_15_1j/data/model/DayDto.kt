@@ -9,5 +9,8 @@ data class DayDto(
     val minTempC: String,
     @SerializedName("maxwind_kph")
     val maxWindKph: String,
-    val condition: ConditionDto
+    val condition: ConditionDto,
+    @SerializedName("avgtemp_c")
+    val foreCastTemp:String
+
 )
